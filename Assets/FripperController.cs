@@ -55,7 +55,7 @@ public class FripperController : MonoBehaviour
             SetAngle(this.defaultAngle);
         }
 
-        //右矢印キーまたはSキーが離された時フリッパーを元に戻す（発展課題追加）
+        //下矢印キーまたはSキーが離された時フリッパーを元に戻す（発展課題追加）
         if ((Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) && (tag == "RightFripperTag" || tag == "LeftFripperTag"))
         {
             SetAngle(this.defaultAngle);
