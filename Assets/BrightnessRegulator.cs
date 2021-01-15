@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class BrightnessRegulator : MonoBehaviour
 {
@@ -19,6 +21,11 @@ public class BrightnessRegulator : MonoBehaviour
     //ターゲットのデフォルトの色
     Color defaultColor = Color.white;
 
+    //ゲームオーバを表示するテキスト
+    private GameObject scoreText;
+
+    //衝突時の配点（課題）
+    private int scoreCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +50,10 @@ public class BrightnessRegulator : MonoBehaviour
         //オブジェクトの最初の色を設定
         myMaterial.SetColor("_EmissionColor", this.defaultColor * minEmission);
 
+        //得点オブジェクトの設定（課題）
+        this.scoreText = GameObject.Find("ScoreCountText");
+        //初期得点を０に設定（課題）
+        this.scoreText.GetComponent<Text>().text = "0";
     }
 
     // Update is called once per frame
@@ -58,6 +69,9 @@ public class BrightnessRegulator : MonoBehaviour
 
             //現在の角度を小さくする
             this.degree -= this.speed;
+
+
+
         }   
     }
 
@@ -66,5 +80,32 @@ public class BrightnessRegulator : MonoBehaviour
     {
         //角度を180に設定
         this.degree = 180;
+
+
+        //下記より得点設定（課題）       
+        //タグによって得点の加点判定（課題）
+        if (tag == "SmallStarTag")
+        {
+            this.scoreCount = 10;
+        }
+        else if (tag == "LargeStarTag")
+        {
+            this.scoreCount = 50;
+        }
+        else if (tag == "SmallCloudTag")
+        {
+            this.scoreCount = 100;
+        }
+        else if (tag == "LargeCloudTag")
+        {
+            this.scoreCount = 200;
+        }
+
+        //現在のスコアをint型にキャスト（課題）
+        int scoreInt = Int32.Parse(scoreText.GetComponent<Text>().text);
+        //衝突物の得点を加点（課題）
+        scoreInt += scoreCount;
+        //スコアテキストに合計点を記載（課題）
+        this.scoreText.GetComponent<Text>().text = scoreInt.ToString();
     }
 }
